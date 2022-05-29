@@ -23,30 +23,33 @@ class _DropdownButtonWidget extends State<DropdownButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: defaultValue,
-      icon: const Icon(Icons.arrow_drop_down_sharp),
-      elevation: 16,
-      style: TextStyle(
-        color: kTextcolor.withOpacity(0.6),
-        fontWeight: FontWeight.bold,
-        fontSize: 18,
-      ),
-      underline: Container(
-        height: 2,
-        color: kTextcolor.withOpacity(0.6),
-      ),
-      onChanged: (String? newValue) {
-        setState(() {
-          defaultValue = newValue!;
-        });
-      },
-      items: items.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value)
-        );
-      }).toList(),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: DropdownButton<String>(
+        value: defaultValue,
+        icon: const Icon(Icons.arrow_drop_down_sharp),
+        elevation: 16,
+        style: TextStyle(
+          color: kTextcolor.withOpacity(0.6),
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+        ),
+        underline: Container(
+          height: 2,
+          color: kTextcolor.withOpacity(0.6),
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            defaultValue = newValue!;
+          });
+        },
+        items: items.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value)
+          );
+        }).toList(),
+      )
     );
   }
 }
