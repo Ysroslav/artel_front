@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_artel/functions.dart';
 
-import '../../constant.dart';
 
 class Footer extends StatelessWidget{
 
@@ -34,7 +34,7 @@ class Footer extends StatelessWidget{
                     width: 3,
                     style: BorderStyle.solid
                 ), borderRadius: BorderRadius.circular(4)),
-              ), onPressed: () {  },
+              ), onPressed: () => navigate('/pricing', context),
               child: const Text(
                 "Get started",
                 style: TextStyle(
