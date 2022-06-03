@@ -12,16 +12,19 @@ class RateBlock extends StatefulWidget{
   final String description;
   final Decimal prise;
   final bool isPopular;
+  final double width;
 
   const RateBlock(
-      {Key? key,
-      required this.title,
-      required this.description,
-      required this.prise,
-      required this.isPopular}) : super(key: key);
+    {Key? key,
+    required this.title,
+    required this.description,
+    required this.prise,
+    required this.isPopular,
+    required this.width}
+  ) : super(key: key);
 
   @override
-  _RateBlock createState() => _RateBlock(title, description, prise, isPopular);
+  _RateBlock createState() => _RateBlock(title, description, prise, isPopular, width);
 }
 
 class _RateBlock extends State<RateBlock>{
@@ -29,16 +32,16 @@ class _RateBlock extends State<RateBlock>{
   final String description;
   final Decimal prise;
   final bool isPopular;
+  final double width;
 
 
-  _RateBlock(this.title, this.description, this.prise, this.isPopular);
+  _RateBlock(this.title, this.description, this.prise, this.isPopular, this.width);
 
   bool isHovering = false;
 
   @override
   Widget build(BuildContext context) {
-    // TODO replace split description
-    List<String> list = List.generate(3, (index) => description);
+    List<String> list = description.split('\n').map((str) => str.trim()).toList();
     return InkWell(
       onTap: () => "press()",
       onHover: (hovering){
@@ -51,17 +54,17 @@ class _RateBlock extends State<RateBlock>{
         duration: const Duration(milliseconds: 200),
         curve: Curves.ease,
         child: BodyBlock(
-          width: 400,
+          width: width,
           height: 500,
           isPopular: isPopular,
           isHovering: isHovering,
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TitleBlock(width: 400, height: 100, isPopular: isPopular, title: title),
-            ListDescription(height: 230.0, desc: list),
-            PriseText(prise: prise, isPopular: isPopular),
-            ButtonRef(isPopular: isPopular, title: 'Sign In')
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TitleBlock(width: width, height: 100, isPopular: isPopular, title: title),
+              ListDescription(height: 230.0, desc: list),
+              PriseText(prise: prise, isPopular: isPopular),
+              ButtonRef(isPopular: isPopular, title: 'Sign In')
             ]
           )
         )
