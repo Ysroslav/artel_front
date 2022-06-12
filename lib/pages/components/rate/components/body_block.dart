@@ -25,7 +25,7 @@ class BodyBlock extends StatelessWidget{
       decoration: BoxDecoration(
         image: isPopular ? const DecorationImage(
         image: AssetImage(
-          "logos/main_popular.png"
+          "assets/logos/main_popular.png"
         ),
         fit: BoxFit.scaleDown,
         alignment: Alignment.topRight

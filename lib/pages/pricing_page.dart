@@ -34,7 +34,7 @@ class _Pricing extends State<Pricing> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "logos/main_pricing.png",
+                  "assets/logos/main_pricing.png",
                   height: 40,
                   alignment: Alignment.topCenter,
                 ),
