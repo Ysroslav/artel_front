@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 
 
-class ButtonRef extends StatelessWidget {
+class ButtonRef extends StatefulWidget {
   final String title;
   final bool isPopular;
+  final VoidCallback onPressed;
+
   const ButtonRef({
     Key? key,
     required this.isPopular,
-    required this.title}) : super(key: key);
+    required this.title,
+    required this.onPressed}) : super(key: key);
+
+  @override
+  _ButtonRef createState() => _ButtonRef(this.title, this.isPopular, this.onPressed);
+
+}
+
+class _ButtonRef extends State<ButtonRef>{
+  final String title;
+  final bool isPopular;
+  final VoidCallback onPressed;
+
+  _ButtonRef(this.title, this.isPopular, this.onPressed);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +38,8 @@ class ButtonRef extends StatelessWidget {
               width: 3,
               style: BorderStyle.solid
           ), borderRadius: BorderRadius.circular(4)),
-        ), onPressed: () {  },
+        ),
+        onPressed: onPressed,
         child: Text(
           title,
           style: TextStyle(
@@ -37,7 +53,4 @@ class ButtonRef extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

@@ -1,9 +1,11 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:web_artel/components/button_ref.dart';
+import 'package:web_artel/components/popup_dialog.dart';
 import 'package:web_artel/pages/components/rate/components/body_block.dart';
 import 'package:web_artel/pages/components/rate/components/prise_text.dart';
 
+import '../../../functions.dart';
 import 'components/list_description.dart';
 import 'components/title_block.dart';
 
@@ -64,7 +66,9 @@ class _RateBlock extends State<RateBlock>{
               TitleBlock(width: width, height: 100, isPopular: isPopular, title: title),
               ListDescription(height: 230.0, desc: list),
               PriseText(prise: prise, isPopular: isPopular),
-              ButtonRef(isPopular: isPopular, title: 'Sign In')
+              ButtonRef(isPopular: isPopular, title: 'Sign In',
+                  onPressed: () => showDialogArtel(context, PopupDialog())
+        )
             ]
           )
         )
