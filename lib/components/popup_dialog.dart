@@ -5,19 +5,24 @@ import 'package:web_artel/components/checkbox_text.dart';
 import 'package:web_artel/components/input_text.dart';
 import 'package:web_artel/wrapper/input_text_error.dart';
 
+import '../dto/rate.dart';
+import '../functions.dart';
 import '../wrapper/check_box_value.dart';
 import 'button_ref.dart';
 
 class PopupDialog extends StatefulWidget {
+  final Rate rate;
 
-  PopupDialog({Key? key}) : super(key: key);
+  PopupDialog({Key? key, required this.rate}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PopupDialog();
+  State<StatefulWidget> createState() => _PopupDialog(rate);
 
 }
 
 class _PopupDialog extends State<PopupDialog> {
+  final Rate rate;
+  _PopupDialog(this.rate);
 
   static StreamController<InputBoxError> checkErrorName = StreamController<InputBoxError>.broadcast();
   static StreamController<InputBoxError> checkErrorEmail = StreamController<InputBoxError>.broadcast();
@@ -34,6 +39,33 @@ class _PopupDialog extends State<PopupDialog> {
     setState((){
       colorBorder = color;
     });
+  }
+
+  void createPaymentAndCheckData(){
+    int check = 0;
+    if (nameInput.getValue().isEmpty) {
+      checkErrorName.add(InputBoxError(true, false));
+    } else {
+      checkErrorName.add(InputBoxError(false, false));
+      check++;
+    }
+    if (emailInput.getValue().isEmpty) {
+      checkErrorEmail.add(InputBoxError(true, false));
+    } else if (!emailInput.getValue().contains('@')) {
+      checkErrorEmail.add(InputBoxError(false, true));
+    } else {
+      checkErrorEmail.add(InputBoxError(false, false));
+      check++;
+    }
+    if (!checkBox.getValue()) {
+      checkErrorBox.add(true);
+    } else {
+      checkErrorBox.add(false);
+      check++;
+    }
+    if (check == 3) {
+      createPayment(rate, emailInput.getValue(), nameInput.getValue());
+    }
   }
 
   @override
@@ -73,32 +105,7 @@ class _PopupDialog extends State<PopupDialog> {
                   ),
                   checkBox,
                   ButtonRef(isPopular: true, title: 'Register & Pay',
-                            onPressed: () => {
-                              check = 0,
-                              if (nameInput.getValue().isEmpty) {
-                                checkErrorName.add(InputBoxError(true, false)),
-                              } else {
-                                checkErrorName.add(InputBoxError(false, false)),
-                                check++
-                              },
-                              if (emailInput.getValue().isEmpty) {
-                                checkErrorEmail.add(InputBoxError(true, false)),
-                              } else if (!emailInput.getValue().contains('@')) {
-                                checkErrorEmail.add(InputBoxError(false, true)),
-                              } else {
-                                checkErrorEmail.add(InputBoxError(false, false)),
-                                check++
-                              },
-                              if (!checkBox.getValue()) {
-                                checkErrorBox.add(true),
-                              } else {
-                                checkErrorBox.add(false),
-                                check++
-                              },
-                              if (check == 3) {
-                                print(check)
-                              }
-                            }),
+                            onPressed: () => createPaymentAndCheckData()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -110,12 +117,12 @@ class _PopupDialog extends State<PopupDialog> {
                         ),
                       ),
                       const Text(
-                          '- required fields',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'Tenor Sans',
-                          ),
+                        '- required fields',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Tenor Sans',
                         ),
+                      ),
                     ],
                   )
                 ],

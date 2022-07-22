@@ -5,6 +5,7 @@ import 'package:web_artel/components/popup_dialog.dart';
 import 'package:web_artel/pages/components/rate/components/body_block.dart';
 import 'package:web_artel/pages/components/rate/components/prise_text.dart';
 
+import '../../../dto/rate.dart';
 import '../../../functions.dart';
 import 'components/list_description.dart';
 import 'components/title_block.dart';
@@ -15,6 +16,7 @@ class RateBlock extends StatefulWidget{
   final Decimal prise;
   final bool isPopular;
   final double width;
+  final Rate rate;
 
   const RateBlock(
     {Key? key,
@@ -22,11 +24,12 @@ class RateBlock extends StatefulWidget{
     required this.description,
     required this.prise,
     required this.isPopular,
-    required this.width}
+    required this.width,
+    required this.rate}
   ) : super(key: key);
 
   @override
-  _RateBlock createState() => _RateBlock(title, description, prise, isPopular, width);
+  _RateBlock createState() => _RateBlock(title, description, prise, isPopular, width, rate);
 }
 
 class _RateBlock extends State<RateBlock>{
@@ -35,9 +38,10 @@ class _RateBlock extends State<RateBlock>{
   final Decimal prise;
   final bool isPopular;
   final double width;
+  final Rate rate;
 
 
-  _RateBlock(this.title, this.description, this.prise, this.isPopular, this.width);
+  _RateBlock(this.title, this.description, this.prise, this.isPopular, this.width, this.rate);
 
   bool isHovering = false;
 
@@ -67,7 +71,7 @@ class _RateBlock extends State<RateBlock>{
               ListDescription(height: 230.0, desc: list),
               PriseText(prise: prise, isPopular: isPopular),
               ButtonRef(isPopular: isPopular, title: 'Sign In',
-                  onPressed: () => showDialogArtel(context, PopupDialog())
+                  onPressed: () => showDialogArtel(context, PopupDialog(rate: rate))
         )
             ]
           )
