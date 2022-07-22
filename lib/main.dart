@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_artel/pages/artist_page.dart';
 import 'package:web_artel/pages/home_page.dart';
 import 'package:web_artel/pages/pricing_page.dart';
 
@@ -20,6 +21,26 @@ class MyApp extends StatelessWidget {
       routes: {
         '/' : (context) => const Home(),
         '/pricing' : (context) => const Pricing(),
+        //'/artist' : (context) => const ArtistPage(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name!.startsWith('/artist')) {
+          final url = settings.name!;
+          final index = url.indexOf("?");
+          if(index < 0) {
+            return MaterialPageRoute(
+              builder: (context) {
+                return const ArtistPage(paymentId: null);
+              },
+            );
+          }
+          final param = url.substring(index).split("=")[1];
+          return MaterialPageRoute(
+            builder: (context) {
+              return ArtistPage(paymentId: param);
+            },
+          );
+        }
       },
     );
   }

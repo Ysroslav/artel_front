@@ -44,6 +44,7 @@ class _ListRates extends State<ListRates>{
                         prise: snapshot.data![index].prise,
                         isPopular: snapshot.data![index].isPopular,
                         width: snapshot.data!.length > 3 ? sizeRateBlockMore : sizeRateBlockDefault,
+                        rate: snapshot.data![index]
                       );
                     }
                   )
